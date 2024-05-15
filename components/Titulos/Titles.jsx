@@ -10,7 +10,7 @@ const Titles = ({
     <div className="flex justify-center items-center relative">
       <div>
         <h2
-          className="text-[7rem] font-bold text-[#634E9B] relative z-10"
+          className="text-[7rem] font-bold text-[#634E9B] relative z-10 flex"
           style={mainTextStyle} // Aplicar estilos al texto principal
         >
           <span

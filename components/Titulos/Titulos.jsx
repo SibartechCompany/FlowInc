@@ -8,6 +8,7 @@ const Titulos = () => {
     fontWeight: "bold",
     color: "white",
     WebkitTextStroke: "1px #634E9B",
+    fontFamily: "ui-sans-serif, system-ui, sans-serif",
   };
 
   // Estilos para el texto secundario
@@ -22,7 +23,7 @@ const Titulos = () => {
   return (
     <div>
       <Titles
-        mainText="¿POR QUE¡" // Texto del fondo
+        mainText="¿POR QUE?" // Texto del fondo
         secondaryText="FLOWINC" // Texto del pequeño
         mainTextStyle={mainTextStyle}
         secondaryTextStyle={secondaryTextStyle}
