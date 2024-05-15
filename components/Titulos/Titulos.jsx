@@ -1,5 +1,6 @@
 import React from "react";
 import Titles from "./Titles";
+import { Margarine } from "next/font/google";
 
 const Titulos = () => {
   // Estilos para el texto Fondo
@@ -18,6 +19,7 @@ const Titulos = () => {
     backgroundImage: "linear-gradient(to right, #30BDE7, #7C0B48)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
+    marginTop: "1rem",
   };
 
   return (
