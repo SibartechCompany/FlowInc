@@ -1,6 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import NextUIContainer from "@/components/NextUIContainer";
+import { Navbar } from "@nextui-org/react";
 
 const inter = Montserrat({ subsets: ["latin"] });
 
