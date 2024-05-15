@@ -36,7 +36,7 @@ const Banner = () => {
       <h1 className="text-9xl font-bold animate-wave bg-gradient-to-r from-[#E21483] via-[#634E9B] to-[#30BDE7] bg-clip-text text-transparent mb-8">
         FLOWINC
       </h1>
-      <p className="text-2xl">{text}</p>
+      <p className="text-2xl md:text-lg">{text}</p>
 
       <style jsx>{`
         @keyframes wave {
@@ -54,6 +54,23 @@ const Banner = () => {
         .animate-wave {
           animation: wave 5s ease-in-out infinite;
           background-size: 300% 300%;
+        }
+
+        /* Estilos para pantallas medianas */
+        @media screen and (max-width: 768px) {
+          .text-9xl {
+            font-size: 6rem; /* Ajusta el tamaño del texto para pantalla mediana */
+          }
+        }
+
+        /* Estilos para pantallas pequeñas (celulares) */
+        @media screen and (max-width: 480px) {
+          .text-9xl {
+            font-size: 4rem; /* Ajusta el tamaño del texto para celular */
+          }
+          .text-2xl {
+            font-size: 1.5rem; /* Ajusta el tamaño del texto para celular */
+          }
         }
       `}</style>
     </div>
