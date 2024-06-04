@@ -1,76 +1,68 @@
 "use client";
-import Logo from "@/public/assets/img/Logo";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCube, Pagination, Autoplay } from "swiper/modules";
+import { TypeAnimation } from "react-type-animation";
 
 const Banner2 = () => {
-  const [text, setText] = useState("");
-  const typingRef = useRef(null);
-
-  useEffect(() => {
-    const phrases = ["Más que agencia", "Somos Flow"];
-    let currentPhraseIndex = 0;
-    let currentCharIndex = 0;
-
-    const type = () => {
-      const phrase = phrases[currentPhraseIndex];
-      if (currentCharIndex < phrase.length) {
-        setText(phrase.slice(0, currentCharIndex + 1));
-        currentCharIndex++;
-        typingRef.current = setTimeout(type, 100); // Ajusta la velocidad de escritura
-      } else {
-        clearTimeout(typingRef.current);
-        setTimeout(() => {
-          currentCharIndex = 0;
-          currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-          type();
-        }, 2000); // Ajusta el tiempo de espera entre frases
-      }
-    };
-
-    type();
-
-    return () => clearTimeout(typingRef.current);
-  }, []);
-
   return (
-    <div className="flex flex-col justify-center items-center h-[90vh] bg-black text-white">
-      <Logo />
-
-      <style jsx>{`
-        @keyframes wave {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-
-        .animate-wave {
-          animation: wave 5s ease-in-out infinite;
-          background-size: 300% 300%;
-        }
-
-        /* Estilos para pantallas medianas */
-        @media screen and (max-width: 768px) {
-          .text-9xl {
-            font-size: 6rem; /* Ajusta el tamaño del texto para pantalla mediana */
-          }
-        }
-
-        /* Estilos para pantallas pequeñas (celulares) */
-        @media screen and (max-width: 480px) {
-          .text-9xl {
-            font-size: 4rem; /* Ajusta el tamaño del texto para celular */
-          }
-          .text-2xl {
-            font-size: 1.5rem; /* Ajusta el tamaño del texto para celular */
-          }
-        }
-      `}</style>
+    <div className="flex flex-col justify-center items-center h-[90vh] bg-black text-white relative">
+      <Swiper
+        loop
+        effect={"cube"}
+        grabCursor={true}
+        speed={5000}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        cubeEffect={{
+          shadow: false,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 0.94,
+        }}
+        pagination={false}
+        modules={[EffectCube, Pagination, Autoplay]}
+        className="swiperBanner"
+      >
+        <SwiperSlide>
+          <div className="w-full h-full flex justify-center items-center">
+            <h1 className="text-9xl font-bold animate-wave bg-gradient-to-r from-[#E21483] via-[#634E9B] to-[#30BDE7] bg-clip-text text-transparent mb-8">
+              FLOWINC
+            </h1>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <div className="w-full h-full flex justify-center items-center">
+              <p className="text-9xl font-bold text-white bg-clip-text text-transparent mb-8 text-center">
+                {isActive ? (
+                  <TypeAnimation
+                    omitDeletionAnimation
+                    cursor={false}
+                    repeat={0}
+                    sequence={[
+                      "",
+                      2500,
+                      // Same substring at the start will only be typed out once, initially
+                      "Más que agencia",
+                      1000,
+                      "Somos Flow",
+                      1000, // wait 1s before replacing "Mice" with "Hamsters"
+                    ]}
+                    wrapper="span"
+                    speed={250}
+                    className="typeReact"
+                  />
+                ) : (
+                  "Somos Flow"
+                )}
+              </p>
+            </div>
+          )}
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 };

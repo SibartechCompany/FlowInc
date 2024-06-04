@@ -60,3 +60,37 @@
   font-size: 24px;
   z-index: 2; /* Asegurar que el logo esté sobre la "linterna" */
 }
+
+.mySwiper > div {
+  transition-timing-function: linear;
+}
+
+.swiperBanner {
+  width: 700px;
+  height: 700px;
+  /* left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -150px; */
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-wave {
+  animation: wave 5s ease-in-out infinite;
+  background-size: 300% 300%;
+}
+
+.typeReact::after {
+  content: "";
+}
