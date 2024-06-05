@@ -21,3 +21,76 @@
     text-wrap: balance;
   }
 }
+
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.light {
+  position: absolute;
+  width: 200px; /* Tamaño de la "linterna" */
+  height: 200px; /* Tamaño de la "linterna" */
+  border-radius: 50%; /* Forma circular */
+  background: #ffffff;
+  filter: blur(50px);
+  mix-blend-mode: screen; /* Mezclar con el fondo oscuro */
+  pointer-events: none; /* Ignorar eventos del mouse */
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  z-index: 2; /* Asegurar que el logo esté sobre la "linterna" */
+}
+
+.mySwiper > div {
+  transition-timing-function: linear;
+}
+
+.swiperBanner {
+  width: 700px;
+  height: 700px;
+  /* left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -150px; */
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-wave {
+  animation: wave 5s ease-in-out infinite;
+  background-size: 300% 300%;
+}
+
+.typeReact::after {
+  content: "";
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Titles from "./Titles";
+import { Margarine } from "next/font/google";
 
 const Titulos = ({ mainText, secondaryText }) => { 
   const [isMobile, setIsMobile] = useState(false);
