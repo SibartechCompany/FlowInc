@@ -16,7 +16,6 @@ export default function Home() {
       <Banner2 />
       <Services />
       <Partners />
-      <Footer />
       <WhatsappButton />
       <AboutUs/>
       <Footer/>
