@@ -19,6 +19,7 @@ export default function Home() {
       <Footer />
       <WhatsappButton />
       <AboutUs/>
+      <Footer/>
     </div>
   );
 }
