@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import Titles from "./Titles";
 import { Margarine } from "next/font/google";
 
-const Titulos = ({ mainText, secondaryText }) => { 
+const Titulos = ({
+  mainText,
+  secondaryText,
+  colorsBG = ["#634f9b", "#34bde8"],
+}) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -25,7 +29,7 @@ const Titulos = ({ mainText, secondaryText }) => {
   const secondaryTextStyle = {
     fontSize: isMobile ? "2rem" : "3rem",
     fontWeight: "bold",
-    backgroundImage: "linear-gradient(to right, #30BDE7, #7C0B48)",
+    backgroundImage: `linear-gradient(to right,${colorsBG[0]},${colorsBG[1]})`,
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     marginTop: isMobile ? "0.5rem" : "1rem",

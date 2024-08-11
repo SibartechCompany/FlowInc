@@ -8,6 +8,13 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+@font-face {
+  font-family: "quantify";
+  src: url("../fonts/Quantify.ttf") format("truetype"); /* Asegúrate de que la ruta sea correcta */
+  font-weight: bold;
+  font-style: normal;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -20,6 +27,14 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.sectionFlow {
+  height: 90dvh;
 }
 
 .banner-container {
@@ -67,7 +82,7 @@
 
 .swiperBanner {
   width: 700px;
-  height: 700px;
+  height: 100%;
   /* left: 50%;
   top: 50%;
   margin-left: -150px;
@@ -93,4 +108,62 @@
 
 .typeReact::after {
   content: "";
+}
+
+.titlesF {
+  font-family: "quantify", sans-serif;
+}
+
+.polygon {
+  transition: all 0.5s;
+  opacity: 0;
+  background: linear-gradient(to top, #634e9b, #30bde7, #e21682);
+  width: 100px; /* adjust to control the size */
+  aspect-ratio: 1;
+  clip-path: polygon(
+    100% 50%,
+    85.36% 85.36%,
+    50% 100%,
+    14.64% 85.36%,
+    0% 50%,
+    14.64% 14.64%,
+    50% 0%,
+    85.36% 14.64%,
+    100% 50%,
+    calc(85.36% - 3.54px) calc(14.64% - -3.54px),
+    calc(50% - 0px) calc(0% - -5px),
+    calc(14.64% - -3.54px) calc(14.64% - -3.54px),
+    calc(0% - -5px) calc(50% - 0px),
+    calc(14.64% - -3.54px) calc(85.36% - 3.54px),
+    calc(50% - 0px) calc(100% - 5px),
+    calc(85.36% - 3.54px) calc(85.36% - 3.54px),
+    calc(100% - 5px) calc(50% - 0px),
+    calc(85.36% - 3.54px) calc(14.64% - -3.54px)
+  );
+}
+
+.containerNavServices {
+  cursor: pointer;
+
+  p,
+  path {
+    transition: all;
+    transition-duration: 0.5s;
+  }
+
+  &:hover {
+    .polygon {
+      opacity: 1;
+    }
+
+    p {
+      color: #30bde7;
+    }
+
+    svg {
+      path {
+        fill: #e21682;
+      }
+    }
+  }
 }

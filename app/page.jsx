@@ -1,4 +1,3 @@
-
 import Services from "@/components/Servicces/Services";
 import Navbar from "@/components/Navbar";
 import Banner from "@/components/Banner/Banner";
@@ -8,17 +7,21 @@ import Partners from "@/components/partners/Partners";
 import Banner2 from "@/components/Banner/Banner2";
 import AboutUs from "@/components/AboutUs";
 import Image from "next/image";
+import FormContactUs from "@/components/FormContactUs";
+import BrandingAndPublicity from "@/components/Branding/BrandingAndPublicity";
 
 export default function Home() {
   return (
     <div>
       <Navbar />
       <Banner2 />
-      <Services />
       <Partners />
+      {/* <Services /> */}
+      <BrandingAndPublicity />
       <WhatsappButton />
-      <AboutUs/>
-      <Footer/>
+      <AboutUs />
+      <FormContactUs />
+      <Footer />
     </div>
   );
 }

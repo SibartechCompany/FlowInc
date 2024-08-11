@@ -8,7 +8,8 @@ import { Pagination } from "swiper/modules";
 
 const Partners = () => {
   return (
-    <div className="bg-black flex flex-col items-center py-6 gap-6">
+    <div className="bg-black flex flex-col items-center py-6 gap-6 relative min-h-screen">
+      <span id="aboutus" className="mt-[-20px] absolute opacity-0 absolute" />
       <div className="flex items-center">
         <h3 className="text-rosa font-bold text-4xl">
           Más de 500.000+ clientes confían en
@@ -27,7 +28,7 @@ const Partners = () => {
         integra <br /> perfectamente con todos los marcos de desarrollo
         populares. Mejore sus estrategias de marketing con facilidad.
       </p>
-      <div className="w-[80%]">
+      <div className="w-[80%] my-6">
         <SwiperCompanys />
       </div>
       <div className="max-h-[515px] flex w-[80%] rounded-lg overflow-hidden">

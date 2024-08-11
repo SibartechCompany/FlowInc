@@ -1,24 +1,77 @@
 "use client";
 import React from "react";
+import SocialMedia from "./Atoms/SocialMedia";
 
 const Navbar = () => {
+  const social = [
+    {
+      name: "instagram",
+      icon: (
+        <svg
+          width={25}
+          height={25}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M8.602 3.75c-2.664 0-4.852 2.186-4.852 4.852v6.796c0 2.663 2.186 4.852 4.852 4.852h6.796c2.663 0 4.852-2.186 4.852-4.852V8.602c0-2.664-2.186-4.852-4.852-4.852H8.602Zm0 1.5h6.796a3.347 3.347 0 0 1 3.352 3.352v6.796a3.347 3.347 0 0 1-3.352 3.352H8.602a3.347 3.347 0 0 1-3.352-3.352V8.602A3.347 3.347 0 0 1 8.602 5.25Zm7.828 1.64a.676.676 0 0 0-.68.68c0 .378.252.68.68.68.378 0 .68-.252.68-.68a.676.676 0 0 0-.68-.68ZM12 7.5A4.512 4.512 0 0 0 7.5 12c0 2.476 2.024 4.5 4.5 4.5s4.5-2.024 4.5-4.5-2.024-4.5-4.5-4.5ZM12 9c1.667 0 3 1.333 3 3s-1.333 3-3 3-3-1.333-3-3 1.333-3 3-3Z" />
+        </svg>
+      ),
+    },
+    {
+      name: "facebook",
+      icon: (
+        <svg
+          width={25}
+          height={25}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M14.44 1.5c-2.956 0-4.69 1.562-4.69 5.12v3.13H6v3.75h3.75v9h3.75v-9h3l.75-3.75H13.5V7.254c0-1.34.437-2.004 1.695-2.004h2.055V1.654c-.355-.048-1.391-.154-2.81-.154Z" />
+        </svg>
+      ),
+    },
+    {
+      name: "linkedin",
+      icon: (
+        <svg
+          width={25}
+          height={25}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M6.482 3A1.981 1.981 0 0 0 4.5 4.98c0 1.095.887 2.001 1.98 2.001 1.094 0 1.982-.906 1.982-2A1.98 1.98 0 0 0 6.482 3Zm9.67 5.25c-1.665 0-2.617.87-3.074 1.736h-.048V8.483H9.75V19.5h3.418v-5.454c0-1.437.108-2.825 1.886-2.825 1.753 0 1.778 1.638 1.778 2.916V19.5h3.418v-6.051c0-2.961-.637-5.199-4.099-5.199Zm-11.38.233V19.5h3.42V8.483h-3.42Z" />
+        </svg>
+      ),
+    },
+    {
+      name: "youtube",
+      icon: (
+        <svg
+          width={25}
+          height={25}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M12 4.5c-2.824 0-5.32.293-6.844.516a2.972 2.972 0 0 0-2.508 2.39A25.538 25.538 0 0 0 2.25 12c0 1.96.202 3.524.398 4.594a2.969 2.969 0 0 0 2.508 2.39c1.53.223 4.034.516 6.844.516 2.81 0 5.314-.293 6.844-.516a2.969 2.969 0 0 0 2.508-2.39A25.62 25.62 0 0 0 21.75 12c0-1.954-.2-3.521-.398-4.594a2.972 2.972 0 0 0-2.508-2.39A48.207 48.207 0 0 0 12 4.5ZM12 6c2.725 0 5.16.278 6.633.492a1.475 1.475 0 0 1 1.242 1.196c.182.99.375 2.458.375 4.312 0 1.852-.193 3.322-.375 4.313a1.258 1.258 0 0 1-1.242 1.195A47.64 47.64 0 0 1 12 18a47.6 47.6 0 0 1-6.633-.492 1.471 1.471 0 0 1-1.242-1.195A23.914 23.914 0 0 1 3.75 12c0-1.86.193-3.322.375-4.313a1.471 1.471 0 0 1 1.242-1.195A47.252 47.252 0 0 1 12 6ZM9.75 7.71v8.58l1.125-.634 5.25-3L17.25 12l-1.125-.656-5.25-3L9.75 7.71Zm1.5 2.58L14.227 12l-2.977 1.71v-3.42Z" />
+        </svg>
+      ),
+    },
+  ];
+
   return (
     <nav className="bg-black py-4 flex justify-center items-center h-[20%]">
-      <div className="w-4/5">
-        <div className="flex justify-between items-center">
-          <a href="#" className="text-white text-lg mx-4">
-            SERVICIOS
-          </a>
-          <a href="#" className="text-white text-lg mx-4">
-            CASOS
-          </a>
-          <img src="/assets/img/logo.webp" alt="Logo" className="h-10 mx-4" />
-          <a href="#" className="text-white text-lg mx-4">
-            NOSOTROS
-          </a>
-          <a href="#" className="text-white text-lg mx-4">
-            CONTACTO
-          </a>
+      <div className="w-4/5 flex justify-between items-center">
+        <div className="flex">
+          <img src="/assets/img/logo.webp" alt="Logo" className="h-16 mx-4" />
+        </div>
+        <div className="flex gap-6">
+          {social.map(({ icon, name }) => (
+            <SocialMedia key={name}>{icon}</SocialMedia>
+          ))}
         </div>
       </div>
     </nav>

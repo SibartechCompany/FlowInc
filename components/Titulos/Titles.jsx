@@ -7,14 +7,14 @@ const Titles = ({
   secondaryTextStyle, // Estilos para el texto secundario
 }) => {
   return (
-    <div className="flex justify-center items-center relative">
-      <div>
+    <div className="flex justify-center items-center">
+      <div className="relative">
         <h2
-          className="text-[7rem] font-bold text-[#634E9B] relative z-10 flex"
+          className="titlesF text-[7rem] font-bold text-[#634E9B] relative z-10 flex"
           style={mainTextStyle} // Aplicar estilos al texto principal
         >
           <span
-            className="text-white"
+            className="text-transparent"
             style={{ WebkitTextStroke: "1px #A0AEC0" }} // Estilos para el texto principal
           >
             {mainText}
