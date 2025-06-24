@@ -12,6 +12,11 @@ export default function useScrollAnimation() {
   const scrollTimeoutRef = useRef(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Referencias para touch events
+  const touchStartRef = useRef({ y: 0, time: 0 });
+  const touchMoveRef = useRef({ y: 0, time: 0 });
+  const isTouchingRef = useRef(false);
+
   const handleWheel = useCallback(
     (e) => {
       // Prevenir scroll si estamos en cualquier parte de la animación (0-4)
@@ -75,6 +80,139 @@ export default function useScrollAnimation() {
     [scrollProgress]
   );
 
+  // Nuevo handler para touch events en móvil
+  const handleTouchStart = useCallback(
+    (e) => {
+      if (scrollProgress >= 0 && scrollProgress <= 4) {
+        isTouchingRef.current = true;
+        touchStartRef.current = {
+          y: e.touches[0].clientY,
+          time: Date.now(),
+        };
+        touchMoveRef.current = {
+          y: e.touches[0].clientY,
+          time: Date.now(),
+        };
+      }
+    },
+    [scrollProgress]
+  );
+
+  const handleTouchMove = useCallback(
+    (e) => {
+      if (scrollProgress >= 0 && scrollProgress <= 4 && isTouchingRef.current) {
+        e.preventDefault();
+
+        const currentY = e.touches[0].clientY;
+        const currentTime = Date.now();
+
+        // Calcular la diferencia desde el último movimiento
+        const deltaY = touchMoveRef.current.y - currentY;
+        const deltaTime = currentTime - touchMoveRef.current.time;
+
+        // Evitar divisiones por cero y movimientos muy pequeños
+        if (Math.abs(deltaY) > 2 && deltaTime > 0) {
+          setIsAnimating(true);
+          isScrollingRef.current = true;
+
+          // Aplicar el movimiento con sensibilidad ajustada para móvil
+          const sensitivity = 0.003; // Sensibilidad específica para touch
+          accumulatedScrollRef.current += deltaY * sensitivity;
+
+          // Limitar entre 0 y 4
+          accumulatedScrollRef.current = Math.max(
+            0,
+            Math.min(4, accumulatedScrollRef.current)
+          );
+
+          setScrollProgress(accumulatedScrollRef.current);
+
+          // Determinar fase
+          if (accumulatedScrollRef.current <= 1) {
+            setPhase("banner");
+          } else if (accumulatedScrollRef.current <= 2) {
+            setPhase("section");
+          } else if (accumulatedScrollRef.current <= 3) {
+            setPhase("proceso");
+          } else {
+            setPhase("cobertura");
+          }
+        }
+
+        // Actualizar la referencia del último movimiento
+        touchMoveRef.current = {
+          y: currentY,
+          time: currentTime,
+        };
+
+        // Limpiar timeout anterior
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+
+        // Detectar cuando parar de animar
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsAnimating(false);
+          isScrollingRef.current = false;
+
+          // Si llegamos al final, permitir scroll normal
+          if (accumulatedScrollRef.current >= 4) {
+            setTimeout(() => {
+              window.scrollTo(0, window.innerHeight);
+            }, 300);
+          }
+
+          // Si volvemos al inicio, resetear posición
+          if (accumulatedScrollRef.current <= 0) {
+            setTimeout(() => {
+              window.scrollTo(0, 0);
+            }, 100);
+          }
+        }, 200); // Un poco más de tiempo para touch
+      }
+    },
+    [scrollProgress]
+  );
+
+  const handleTouchEnd = useCallback(
+    (e) => {
+      if (scrollProgress >= 0 && scrollProgress <= 4) {
+        isTouchingRef.current = false;
+
+        // Calcular velocidad del swipe para inercia opcional
+        const touchEndY = e.changedTouches[0].clientY;
+        const totalDeltaY = touchStartRef.current.y - touchEndY;
+        const totalTime = Date.now() - touchStartRef.current.time;
+
+        // Si fue un swipe rápido, podemos añadir un poco de inercia
+        if (totalTime < 300 && Math.abs(totalDeltaY) > 50) {
+          const velocity = totalDeltaY / totalTime;
+          const inertia = velocity * 0.1; // Factor de inercia
+
+          accumulatedScrollRef.current += inertia;
+          accumulatedScrollRef.current = Math.max(
+            0,
+            Math.min(4, accumulatedScrollRef.current)
+          );
+
+          setScrollProgress(accumulatedScrollRef.current);
+
+          // Actualizar fase después del efecto de inercia
+          if (accumulatedScrollRef.current <= 1) {
+            setPhase("banner");
+          } else if (accumulatedScrollRef.current <= 2) {
+            setPhase("section");
+          } else if (accumulatedScrollRef.current <= 3) {
+            setPhase("proceso");
+          } else {
+            setPhase("cobertura");
+          }
+        }
+      }
+    },
+    [scrollProgress]
+  );
+
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === "ArrowUp" || e.key === "ArrowDown") {
@@ -119,20 +257,38 @@ export default function useScrollAnimation() {
       }
     };
 
-    // Agregar listeners
+    // Agregar listeners para desktop
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("keydown", handleKeyDown);
 
+    // Agregar listeners para móvil
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
+
     return () => {
+      // Limpiar listeners de desktop
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("keydown", handleKeyDown);
+
+      // Limpiar listeners de móvil
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
     };
-  }, [handleWheel, handleKeyDown]);
+  }, [
+    handleWheel,
+    handleKeyDown,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+  ]);
 
   // Funciones de utilidad para la fase del banner (0-1) - ZOOM BIDIRECCIONAL
   const getBannerScale = (startProgress = 0, endProgress = 1, maxScale = 4) => {

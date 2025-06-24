@@ -113,28 +113,28 @@ export default function NuestroProceso({
 
   if (isInScrollContainer) {
     return (
-      <div className="w-full h-screen flex items-center justify-center px-6 py-8">
-        <div className="max-w-7xl mx-auto relative">
-          {/* Título Principal - Más Compacto */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+      <div className="w-full h-screen flex items-center justify-center px-4 py-4 sm:px-6 sm:py-8">
+        <div className="max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto relative">
+          {/* Título Principal - Más Compacto - RESPONSIVE MEJORADO - ULTRA COMPACTO MÓVIL */}
+          <div className="text-center mb-4 sm:mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black mb-2 sm:mb-3 md:mb-4">
               <span className="bg-gradient-to-r from-[#33bce7] via-[#634e99] to-[#e01580] bg-clip-text text-transparent">
                 CÓMO TRABAJAMOS
               </span>
               <span className="text-white"> CONTIGO</span>
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-sm sm:max-w-lg md:max-w-2xl mx-auto px-2 hidden sm:block">
               Un proceso probado que garantiza resultados excepcionales
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#33bce7] to-[#e01580] mx-auto rounded-full mt-6"></div>
+            <div className="w-8 sm:w-12 md:w-16 lg:w-20 xl:w-24 h-1 bg-gradient-to-r from-[#33bce7] to-[#e01580] mx-auto rounded-full mt-2 sm:mt-3 md:mt-4 lg:mt-6"></div>
           </div>
 
-          {/* Grid de Tarjetas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
+          {/* Grid de Tarjetas - RESPONSIVE MEJORADO - ULTRA COMPACTO MÓVIL */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-8">
             {procesoData.map((proceso, index) => (
               <div
                 key={index}
-                className={`group relative h-80 rounded-3xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all duration-700 cursor-pointer ${
+                className={`group relative h-48 sm:h-60 md:h-72 lg:h-80 rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all duration-700 cursor-pointer ${
                   visibleCards.includes(index)
                     ? "opacity-100 transform translate-y-0 scale-100"
                     : "opacity-0 transform translate-y-8 scale-95"
@@ -158,19 +158,19 @@ export default function NuestroProceso({
                 onMouseEnter={() => !isZooming && setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                {/* Contenido de la Tarjeta */}
-                <div className="p-6 h-full flex flex-col justify-between relative z-10">
-                  {/* Header */}
+                {/* Contenido de la Tarjeta - RESPONSIVE MEJORADO - ULTRA COMPACTO MÓVIL */}
+                <div className="p-2 sm:p-3 md:p-4 lg:p-6 h-full flex flex-col justify-between relative z-10">
+                  {/* Header - RESPONSIVE MEJORADO - ULTRA COMPACTO MÓVIL */}
                   <div className="text-center">
                     <div
-                      className="text-4xl font-black opacity-30 mb-3"
+                      className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black opacity-30 mb-1 sm:mb-2 md:mb-3"
                       style={{ color: proceso.color }}
                     >
                       {proceso.step}
                     </div>
 
                     <div
-                      className={`text-5xl mb-4 transition-transform duration-500 ${
+                      className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-1 sm:mb-2 md:mb-3 lg:mb-4 transition-transform duration-500 ${
                         hoveredCard === index ? "scale-110 rotate-12" : ""
                       }`}
                     >
@@ -178,32 +178,38 @@ export default function NuestroProceso({
                     </div>
 
                     <h3
-                      className="text-xl lg:text-2xl font-black mb-2"
+                      className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-black mb-1 sm:mb-1 md:mb-2"
                       style={{ color: proceso.color }}
                     >
                       {proceso.title}
                     </h3>
 
-                    <h4 className="text-sm text-white font-semibold mb-4 leading-tight">
+                    <h4 className="text-xs text-white font-semibold mb-2 sm:mb-3 md:mb-4 leading-tight px-1">
                       {proceso.subtitle}
                     </h4>
                   </div>
 
-                  {/* Descripción */}
+                  {/* Descripción - RESPONSIVE MEJORADO - ULTRA COMPACTO MÓVIL */}
                   <div className="flex-1 flex flex-col justify-center">
-                    <p className="text-gray-300 text-sm leading-relaxed text-center mb-4">
+                    {/* Descripción corta para móvil */}
+                    <p className="text-gray-300 text-xs leading-tight text-center mb-1 px-1 block sm:hidden">
+                      {proceso.description.split("•")[0].trim()}
+                    </p>
+
+                    {/* Descripción completa para tablet+ */}
+                    <p className="text-gray-300 text-xs sm:text-xs md:text-sm leading-relaxed text-center mb-1 sm:mb-2 md:mb-3 lg:mb-4 px-1 hidden sm:block">
                       {proceso.description}
                     </p>
 
-                    {/* Detalles expandidos al hover */}
+                    {/* Detalles expandidos al hover - RESPONSIVE MEJORADO - OCULTOS EN MÓVIL */}
                     <div
-                      className={`transition-all duration-500 overflow-hidden ${
+                      className={`transition-all duration-500 overflow-hidden hidden sm:block ${
                         hoveredCard === index
-                          ? "max-h-32 opacity-100"
+                          ? "max-h-20 sm:max-h-24 md:max-h-28 lg:max-h-32 opacity-100"
                           : "max-h-0 opacity-0"
                       }`}
                     >
-                      <div className="space-y-2 pt-2 border-t border-white/10">
+                      <div className="space-y-1 sm:space-y-2 pt-2 border-t border-white/10">
                         {proceso.details.map((detail, detailIndex) => (
                           <div
                             key={detailIndex}
@@ -213,10 +219,10 @@ export default function NuestroProceso({
                             }}
                           >
                             <div
-                              className="w-1.5 h-1.5 rounded-full mr-2 flex-shrink-0"
+                              className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full mr-2 flex-shrink-0"
                               style={{ backgroundColor: proceso.color }}
                             />
-                            {detail}
+                            <span className="truncate">{detail}</span>
                           </div>
                         ))}
                       </div>
@@ -234,9 +240,9 @@ export default function NuestroProceso({
                   }}
                 />
 
-                {/* Partículas flotantes - Solo si no está zooming */}
+                {/* Partículas flotantes - Solo si no está zooming - OCULTAS EN MÓVIL */}
                 {hoveredCard === index && !isZooming && (
-                  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden hidden sm:block">
                     {[...Array(3)].map(
                       (
                         _,
@@ -258,10 +264,10 @@ export default function NuestroProceso({
                   </div>
                 )}
 
-                {/* Borde animado - Deshabilitado durante zoom */}
+                {/* Borde animado - Deshabilitado durante zoom y en móvil */}
                 {!isZooming && (
                   <div
-                    className={`absolute inset-0 rounded-3xl transition-opacity duration-500 ${
+                    className={`absolute inset-0 rounded-xl sm:rounded-2xl md:rounded-3xl transition-opacity duration-500 hidden sm:block ${
                       hoveredCard === index ? "opacity-100" : "opacity-0"
                     }`}
                     style={{
@@ -280,9 +286,9 @@ export default function NuestroProceso({
             ))}
           </div>
 
-          {/* Conexiones entre tarjetas - Ocultas durante zoom */}
+          {/* Conexiones entre tarjetas - Ocultas durante zoom y en móvil - RESPONSIVE MEJORADO */}
           {!isZooming && (
-            <div className="hidden xl:block absolute inset-0 pointer-events-none">
+            <div className="hidden lg:block absolute inset-0 pointer-events-none">
               {procesoData.slice(0, -1).map((_, index) => (
                 <div
                   key={index}
@@ -307,13 +313,13 @@ export default function NuestroProceso({
             </div>
           )}
 
-          {/* Indicador de progreso global - Oculto durante zoom */}
+          {/* Indicador de progreso global - Oculto durante zoom - RESPONSIVE MEJORADO - MÁS COMPACTO MÓVIL */}
           {!isZooming && (
-            <div className="flex justify-center mt-12 space-x-3">
+            <div className="flex justify-center mt-3 sm:mt-4 md:mt-6 lg:mt-8 xl:mt-12 space-x-1 sm:space-x-2 md:space-x-3">
               {procesoData.map((proceso, index) => (
                 <div
                   key={index}
-                  className={`w-12 h-3 rounded-full transition-all duration-500 ${
+                  className={`w-6 sm:w-8 md:w-10 lg:w-12 h-1.5 sm:h-2 md:h-2.5 lg:h-3 rounded-full transition-all duration-500 ${
                     visibleCards.includes(index)
                       ? "scale-100"
                       : "scale-75 opacity-50"
@@ -333,35 +339,35 @@ export default function NuestroProceso({
     );
   }
 
-  // Versión independiente más elaborada
+  // Versión independiente más elaborada - RESPONSIVE MEJORADO
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen py-16 px-6 relative bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center"
+      className="min-h-screen py-12 sm:py-14 md:py-16 px-4 sm:px-6 relative bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center"
     >
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
-        {/* Título Principal */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6">
+      <div className="max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto relative z-10 w-full">
+        {/* Título Principal - RESPONSIVE MEJORADO */}
+        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6">
             <span className="bg-gradient-to-r from-[#33bce7] via-[#634e99] to-[#e01580] bg-clip-text text-transparent">
               CÓMO TRABAJAMOS
             </span>
             <span className="text-white"> CONTIGO</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2">
             Un proceso probado que garantiza resultados excepcionales
           </p>
-          <div className="w-32 h-1 bg-gradient-to-r from-[#33bce7] to-[#e01580] mx-auto rounded-full mt-8"></div>
+          <div className="w-16 sm:w-20 md:w-24 lg:w-32 h-1 bg-gradient-to-r from-[#33bce7] to-[#e01580] mx-auto rounded-full mt-4 sm:mt-6 md:mt-8"></div>
         </div>
 
-        {/* Grid de Proceso */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Grid de Proceso - RESPONSIVE MEJORADO */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {procesoData.map((proceso, index) => (
             <div
               key={index}
               ref={(el) => (cardRefs.current[index] = el)}
               data-index={index}
-              className={`group relative h-96 rounded-3xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all duration-1000 cursor-pointer ${
+              className={`group relative h-80 sm:h-88 md:h-96 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all duration-1000 cursor-pointer ${
                 visibleCards.includes(index)
                   ? "opacity-100 transform translate-y-0"
                   : "opacity-0 transform translate-y-12"
@@ -373,48 +379,48 @@ export default function NuestroProceso({
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Contenido completo para versión independiente */}
-              <div className="p-8 h-full flex flex-col justify-between relative z-10">
+              {/* Contenido completo para versión independiente - RESPONSIVE MEJORADO */}
+              <div className="p-4 sm:p-6 md:p-8 h-full flex flex-col justify-between relative z-10">
                 <div className="text-center">
                   <div
-                    className="text-5xl font-black opacity-30 mb-4"
+                    className="text-3xl sm:text-4xl md:text-5xl font-black opacity-30 mb-3 sm:mb-4"
                     style={{ color: proceso.color }}
                   >
                     {proceso.step}
                   </div>
 
-                  <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-5 md:mb-6 group-hover:scale-110 transition-transform duration-300">
                     {proceso.icon}
                   </div>
 
                   <h3
-                    className="text-2xl lg:text-3xl font-black mb-3"
+                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black mb-2 sm:mb-3"
                     style={{ color: proceso.color }}
                   >
                     {proceso.title}
                   </h3>
 
-                  <h4 className="text-lg text-white font-semibold mb-6">
+                  <h4 className="text-sm sm:text-base md:text-lg text-white font-semibold mb-4 sm:mb-5 md:mb-6 leading-tight px-1">
                     {proceso.subtitle}
                   </h4>
                 </div>
 
                 <div className="flex-1 flex flex-col justify-center">
-                  <p className="text-gray-300 text-center leading-relaxed mb-6">
+                  <p className="text-gray-300 text-center leading-relaxed mb-4 sm:mb-5 md:mb-6 text-xs sm:text-sm md:text-base">
                     {proceso.description}
                   </p>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {proceso.details.map((detail, detailIndex) => (
                       <div
                         key={detailIndex}
-                        className="flex items-center text-gray-400 text-sm"
+                        className="flex items-center text-gray-400 text-xs sm:text-sm"
                       >
                         <div
-                          className="w-2 h-2 rounded-full mr-3 flex-shrink-0"
+                          className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full mr-2 sm:mr-3 flex-shrink-0"
                           style={{ backgroundColor: proceso.color }}
                         />
-                        {detail}
+                        <span className="leading-tight">{detail}</span>
                       </div>
                     ))}
                   </div>
@@ -423,7 +429,7 @@ export default function NuestroProceso({
 
               {/* Efectos hover */}
               <div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{
                   background: `linear-gradient(135deg, ${proceso.color}15, transparent)`,
                 }}

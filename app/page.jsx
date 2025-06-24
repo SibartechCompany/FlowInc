@@ -1,5 +1,5 @@
 import Navbar from "@/components/ui/navbar/Navbar";
-import { QuienesSomos } from "@/components/ui/sections";
+
 import { MouseTrail } from "@/components/ui/cursor";
 import { ScrollContainer } from "@/components/ui/scroll";
 
@@ -56,7 +56,6 @@ export default function Home() {
         <div className="h-screen"></div>
 
         {/* Otras secciones que continúan con scroll normal */}
-        <QuienesSomos />
       </div>
     </main>
   );
