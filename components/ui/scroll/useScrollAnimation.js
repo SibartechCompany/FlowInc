@@ -19,8 +19,8 @@ export default function useScrollAnimation() {
 
   const handleWheel = useCallback(
     (e) => {
-      // Prevenir scroll si estamos en cualquier parte de la animación (0-4)
-      if (scrollProgress >= 0 && scrollProgress <= 4) {
+      // Prevenir scroll si estamos en cualquier parte de la animación (0-7)
+      if (scrollProgress >= 0 && scrollProgress <= 7) {
         e.preventDefault();
 
         setIsAnimating(true);
@@ -32,23 +32,29 @@ export default function useScrollAnimation() {
         // Aplicar cambio bidireccional con velocidad reducida para transiciones más suaves
         accumulatedScrollRef.current += deltaY * 0.001;
 
-        // Limitar entre 0 y 4 - PERMITE IR EN AMBAS DIRECCIONES (4 fases)
+        // Limitar entre 0 y 7 - PERMITE IR EN AMBAS DIRECCIONES (7 fases)
         accumulatedScrollRef.current = Math.max(
           0,
-          Math.min(4, accumulatedScrollRef.current)
+          Math.min(7, accumulatedScrollRef.current)
         );
 
         setScrollProgress(accumulatedScrollRef.current);
 
-        // Determinar en qué fase estamos
+        // Determinar en qué fase estamos - 7 fases total
         if (accumulatedScrollRef.current <= 1) {
           setPhase("banner");
         } else if (accumulatedScrollRef.current <= 2) {
           setPhase("section");
         } else if (accumulatedScrollRef.current <= 3) {
           setPhase("proceso");
-        } else {
+        } else if (accumulatedScrollRef.current <= 4) {
           setPhase("cobertura");
+        } else if (accumulatedScrollRef.current <= 5) {
+          setPhase("casos");
+        } else if (accumulatedScrollRef.current <= 6) {
+          setPhase("testimonios");
+        } else {
+          setPhase("cta");
         }
 
         // Limpiar timeout anterior
@@ -62,7 +68,7 @@ export default function useScrollAnimation() {
           isScrollingRef.current = false;
 
           // Si llegamos al final, permitir scroll normal
-          if (accumulatedScrollRef.current >= 4) {
+          if (accumulatedScrollRef.current >= 7) {
             setTimeout(() => {
               window.scrollTo(0, window.innerHeight);
             }, 300);
@@ -83,7 +89,7 @@ export default function useScrollAnimation() {
   // Nuevo handler para touch events en móvil
   const handleTouchStart = useCallback(
     (e) => {
-      if (scrollProgress >= 0 && scrollProgress <= 4) {
+      if (scrollProgress >= 0 && scrollProgress <= 7) {
         isTouchingRef.current = true;
         touchStartRef.current = {
           y: e.touches[0].clientY,
@@ -100,7 +106,7 @@ export default function useScrollAnimation() {
 
   const handleTouchMove = useCallback(
     (e) => {
-      if (scrollProgress >= 0 && scrollProgress <= 4 && isTouchingRef.current) {
+      if (scrollProgress >= 0 && scrollProgress <= 7 && isTouchingRef.current) {
         e.preventDefault();
 
         const currentY = e.touches[0].clientY;
@@ -119,23 +125,29 @@ export default function useScrollAnimation() {
           const sensitivity = 0.003; // Sensibilidad específica para touch
           accumulatedScrollRef.current += deltaY * sensitivity;
 
-          // Limitar entre 0 y 4
+          // Limitar entre 0 y 7
           accumulatedScrollRef.current = Math.max(
             0,
-            Math.min(4, accumulatedScrollRef.current)
+            Math.min(7, accumulatedScrollRef.current)
           );
 
           setScrollProgress(accumulatedScrollRef.current);
 
-          // Determinar fase
+          // Determinar fase - 7 fases total
           if (accumulatedScrollRef.current <= 1) {
             setPhase("banner");
           } else if (accumulatedScrollRef.current <= 2) {
             setPhase("section");
           } else if (accumulatedScrollRef.current <= 3) {
             setPhase("proceso");
-          } else {
+          } else if (accumulatedScrollRef.current <= 4) {
             setPhase("cobertura");
+          } else if (accumulatedScrollRef.current <= 5) {
+            setPhase("casos");
+          } else if (accumulatedScrollRef.current <= 6) {
+            setPhase("testimonios");
+          } else {
+            setPhase("cta");
           }
         }
 
@@ -156,7 +168,7 @@ export default function useScrollAnimation() {
           isScrollingRef.current = false;
 
           // Si llegamos al final, permitir scroll normal
-          if (accumulatedScrollRef.current >= 4) {
+          if (accumulatedScrollRef.current >= 7) {
             setTimeout(() => {
               window.scrollTo(0, window.innerHeight);
             }, 300);
@@ -176,7 +188,7 @@ export default function useScrollAnimation() {
 
   const handleTouchEnd = useCallback(
     (e) => {
-      if (scrollProgress >= 0 && scrollProgress <= 4) {
+      if (scrollProgress >= 0 && scrollProgress <= 7) {
         isTouchingRef.current = false;
 
         // Calcular velocidad del swipe para inercia opcional
@@ -192,7 +204,7 @@ export default function useScrollAnimation() {
           accumulatedScrollRef.current += inertia;
           accumulatedScrollRef.current = Math.max(
             0,
-            Math.min(4, accumulatedScrollRef.current)
+            Math.min(7, accumulatedScrollRef.current)
           );
 
           setScrollProgress(accumulatedScrollRef.current);
@@ -204,8 +216,14 @@ export default function useScrollAnimation() {
             setPhase("section");
           } else if (accumulatedScrollRef.current <= 3) {
             setPhase("proceso");
-          } else {
+          } else if (accumulatedScrollRef.current <= 4) {
             setPhase("cobertura");
+          } else if (accumulatedScrollRef.current <= 5) {
+            setPhase("casos");
+          } else if (accumulatedScrollRef.current <= 6) {
+            setPhase("testimonios");
+          } else {
+            setPhase("cta");
           }
         }
       }
@@ -219,11 +237,11 @@ export default function useScrollAnimation() {
         e.preventDefault();
         const direction = e.key === "ArrowDown" ? 1 : -1;
 
-        if (scrollProgress >= 0 && scrollProgress <= 4) {
+        if (scrollProgress >= 0 && scrollProgress <= 7) {
           accumulatedScrollRef.current += direction * 0.1;
           accumulatedScrollRef.current = Math.max(
             0,
-            Math.min(4, accumulatedScrollRef.current)
+            Math.min(7, accumulatedScrollRef.current)
           );
           setScrollProgress(accumulatedScrollRef.current);
 
@@ -233,8 +251,14 @@ export default function useScrollAnimation() {
             setPhase("section");
           } else if (accumulatedScrollRef.current <= 3) {
             setPhase("proceso");
-          } else {
+          } else if (accumulatedScrollRef.current <= 4) {
             setPhase("cobertura");
+          } else if (accumulatedScrollRef.current <= 5) {
+            setPhase("casos");
+          } else if (accumulatedScrollRef.current <= 6) {
+            setPhase("testimonios");
+          } else {
+            setPhase("cta");
           }
         }
       }
@@ -245,7 +269,7 @@ export default function useScrollAnimation() {
   useEffect(() => {
     const handleScroll = () => {
       // Si estamos en scroll normal después de la animación
-      if (window.scrollY > 0 && scrollProgress >= 4) {
+      if (window.scrollY > 0 && scrollProgress >= 7) {
         return;
       }
 
@@ -447,13 +471,17 @@ export default function useScrollAnimation() {
   // Funciones para Cobertura (3-4) - Fade in como QuienesSomos después del banner
   const getCoberturaOpacity = () => {
     if (scrollProgress <= 2.8) return 0;
-    if (scrollProgress >= 4) return 1;
+    if (scrollProgress >= 4) return 0;
 
     const phaseProgress = scrollProgress - 2.8;
 
     if (phaseProgress <= 0.4) {
       // Fade in suave como QuienesSomos
       return phaseProgress / 0.4;
+    } else if (scrollProgress >= 3.6) {
+      // Fade out para la siguiente sección
+      const fadeProgress = (scrollProgress - 3.6) / 0.4;
+      return Math.max(0, 1 - fadeProgress);
     } else {
       return 1;
     }
@@ -478,6 +506,110 @@ export default function useScrollAnimation() {
     return 0;
   };
 
+  // Funciones para CasosExito (4-5) - Slide lateral desde la derecha
+  const getCasosOpacity = () => {
+    if (scrollProgress <= 3.8) return 0;
+    if (scrollProgress >= 5) return 0;
+
+    const phaseProgress = scrollProgress - 3.8;
+
+    if (phaseProgress <= 0.4) {
+      // Fade in con slide
+      return phaseProgress / 0.4;
+    } else if (scrollProgress >= 4.6) {
+      // Fade out para la siguiente sección
+      const fadeProgress = (scrollProgress - 4.6) / 0.4;
+      return Math.max(0, 1 - fadeProgress);
+    } else {
+      return 1;
+    }
+  };
+
+  const getCasosSlideX = () => {
+    if (scrollProgress <= 3.8) return 100; // Empieza fuera del viewport
+    if (scrollProgress >= 4.2) return 0; // Ya completamente dentro
+
+    const slideProgress = (scrollProgress - 3.8) / 0.4;
+    return 100 - slideProgress * 100;
+  };
+
+  const getCasosScale = () => {
+    if (scrollProgress <= 3.8) return 0.9;
+    if (scrollProgress >= 4.2) return 1;
+
+    const slideProgress = (scrollProgress - 3.8) / 0.4;
+    return 0.9 + slideProgress * 0.1;
+  };
+
+  // Funciones para TestimoniosClientes (5-6) - Zoom in desde pequeño
+  const getTestimoniosOpacity = () => {
+    if (scrollProgress <= 4.8) return 0;
+    if (scrollProgress >= 6) return 0;
+
+    const phaseProgress = scrollProgress - 4.8;
+
+    if (phaseProgress <= 0.4) {
+      // Fade in con zoom
+      return phaseProgress / 0.4;
+    } else if (scrollProgress >= 5.6) {
+      // Fade out para la siguiente sección
+      const fadeProgress = (scrollProgress - 5.6) / 0.4;
+      return Math.max(0, 1 - fadeProgress);
+    } else {
+      return 1;
+    }
+  };
+
+  const getTestimoniosScale = () => {
+    if (scrollProgress <= 4.8) return 0.6; // Empieza muy pequeño
+    if (scrollProgress >= 5.2) return 1; // Tamaño normal
+
+    const zoomProgress = (scrollProgress - 4.8) / 0.4;
+    const smoothProgress = 1 - Math.pow(1 - zoomProgress, 3); // Easing cubic-out
+    return 0.6 + smoothProgress * 0.4;
+  };
+
+  const getTestimoniosTranslateY = () => {
+    if (scrollProgress <= 4.8) return 50; // Empieza un poco abajo
+    if (scrollProgress >= 5.2) return 0; // Posición final
+
+    const moveProgress = (scrollProgress - 4.8) / 0.4;
+    return 50 - moveProgress * 50;
+  };
+
+  // Funciones para CTAFinal (6-7) - Fade dramático con pulso
+  const getCTAOpacity = () => {
+    if (scrollProgress <= 5.8) return 0;
+    if (scrollProgress >= 7) return 1;
+
+    const phaseProgress = scrollProgress - 5.8;
+    if (phaseProgress <= 0.4) {
+      // Fade in dramático
+      return Math.pow(phaseProgress / 0.4, 0.5); // Square root para inicio más rápido
+    } else {
+      return 1;
+    }
+  };
+
+  const getCTAScale = () => {
+    if (scrollProgress <= 5.8) return 0.8;
+    if (scrollProgress >= 6.2) {
+      // Pulso sutil al final
+      const pulseProgress = (scrollProgress - 6.2) / 0.8;
+      return 1 + Math.sin(pulseProgress * Math.PI * 4) * 0.02; // Pulso de 2%
+    }
+
+    const scaleProgress = (scrollProgress - 5.8) / 0.4;
+    const smoothProgress = 1 - Math.pow(1 - scaleProgress, 2); // Easing quadratic-out
+    return 0.8 + smoothProgress * 0.2;
+  };
+
+  const getCTAGlow = () => {
+    if (scrollProgress <= 6) return 0;
+    const glowProgress = (scrollProgress - 6) / 1;
+    return Math.min(1, glowProgress * 2); // Intensidad del glow
+  };
+
   const getScrollDirection = () => {
     return isScrollingRef.current
       ? accumulatedScrollRef.current > scrollProgress
@@ -494,7 +626,15 @@ export default function useScrollAnimation() {
   };
 
   const navigateTo = (target) => {
-    const targets = { banner: 0, section: 1.5, proceso: 2.5, cobertura: 3.5 };
+    const targets = { 
+      banner: 0, 
+      section: 1.5, 
+      proceso: 2.5, 
+      cobertura: 3.5,
+      casos: 4.5,
+      testimonios: 5.5,
+      cta: 6.5
+    };
     if (targets[target] !== undefined) {
       accumulatedScrollRef.current = targets[target];
       setScrollProgress(targets[target]);
@@ -531,6 +671,21 @@ export default function useScrollAnimation() {
     getCoberturaScale,
     getCoberturaTranslateY,
 
+    // CasosExito functions
+    getCasosOpacity,
+    getCasosSlideX,
+    getCasosScale,
+
+    // TestimoniosClientes functions
+    getTestimoniosOpacity,
+    getTestimoniosScale,
+    getTestimoniosTranslateY,
+
+    // CTAFinal functions
+    getCTAOpacity,
+    getCTAScale,
+    getCTAGlow,
+
     // Utility functions
     getScrollDirection,
     reset,
@@ -542,5 +697,8 @@ export default function useScrollAnimation() {
     isBannerComplete: scrollProgress >= 1,
     isSectionComplete: scrollProgress >= 2,
     isProcesoComplete: scrollProgress >= 3,
+    isCoberturaComplete: scrollProgress >= 4,
+    isCasosComplete: scrollProgress >= 5,
+    isTestimoniosComplete: scrollProgress >= 6,
   };
 }

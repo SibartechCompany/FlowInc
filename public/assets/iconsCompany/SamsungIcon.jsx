@@ -1,6 +1,6 @@
 import React from "react";
 
-const SamsungIcon = () => {
+const SamsungIcon = ({ className }) => {
   return (
     <svg
       width="291"
@@ -8,6 +8,7 @@ const SamsungIcon = () => {
       viewBox="0 0 291 70"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <rect

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Ebay = () => {
+const Ebay = ({ className }) => {
   return (
     <svg
       width="173"
@@ -9,6 +9,7 @@ const Ebay = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      className={className}
     >
       <rect
         opacity="0.8"
