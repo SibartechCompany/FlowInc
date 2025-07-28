@@ -110,7 +110,7 @@ export default function TestimoniosClientes({ isInScrollContainer = false }) {
               ))}
             </div>
             <p className="text-gray-300 text-lg italic mb-4 leading-relaxed">
-              "{testimonios[0].testimonio}"
+              &ldquo;{testimonios[0].testimonio}&rdquo;
             </p>
             <div className="text-white font-semibold">
               {testimonios[0].nombre}
@@ -171,7 +171,7 @@ export default function TestimoniosClientes({ isInScrollContainer = false }) {
 
               {/* Testimonio */}
               <p className="text-gray-300 text-center italic mb-6 leading-relaxed">
-                "{testimonio.testimonio}"
+                &ldquo;{testimonio.testimonio}&rdquo;
               </p>
 
               {/* Autor */}
