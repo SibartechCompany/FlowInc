@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { useScrollAnimation } from "./useScrollAnimation";
+import { useRef, useEffect, useState } from "react";
+import { useScrollAnimation } from "./ScrollAnimationProvider";
 
 export default function AnimatedSection({ 
   children, 
@@ -11,18 +11,28 @@ export default function AnimatedSection({
   delay = 0 
 }) {
   const sectionRef = useRef(null);
-  const { registerSection, isSectionVisible } = useScrollAnimation();
+  const [isMounted, setIsMounted] = useState(false);
+  const { registerSection, isSectionVisible, isClient } = useScrollAnimation();
 
   useEffect(() => {
-    if (sectionRef.current) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (sectionRef.current && isMounted && isClient) {
       registerSection(sectionId, sectionRef.current);
     }
-  }, [sectionId, registerSection]);
+  }, [sectionId, registerSection, isMounted, isClient]);
 
   const isVisible = isSectionVisible(sectionId);
 
   const getAnimationClasses = () => {
     const baseClasses = "transition-all duration-1000 ease-out";
+    
+    // Durante SSR o antes de montar, mostrar sin animación
+    if (!isMounted || !isClient) {
+      return `${baseClasses} opacity-100 translate-y-0`;
+    }
     
     switch (animationType) {
       case "fade-up":

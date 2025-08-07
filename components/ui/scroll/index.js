@@ -1,3 +1,3 @@
 export { default as ScrollContainer } from "./ScrollContainer";
-export { useScrollAnimation } from "./useScrollAnimation";
+export { useScrollAnimation, ScrollAnimationProvider } from "./ScrollAnimationProvider";
 export { default as AnimatedSection } from "./AnimatedSection";
