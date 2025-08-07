@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-cube";
 import Navbar from "@/components/ui/navbar";
 import { MouseTrail } from "@/components/ui/cursor";
+import { AnimatedSection } from "@/components/ui/scroll";
 
 const inter = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -58,6 +59,63 @@ export default function RootLayout({ children }) {
         <Navbar />
         <MouseTrail />
         {children}
+         {/* Footer Section */}
+      <AnimatedSection 
+        sectionId="footer" 
+        className="py-16 px-4 border-t border-white/10"
+        animationType="fade-up"
+        delay={20}
+      >
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-white font-bold mb-4">Servicios</h3>
+              <ul className="text-gray-400 space-y-2">
+                <li>Activaciones</li>
+                <li>Eventos</li>
+                <li>Creatividad</li>
+                <li>Logística</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold mb-4">Empresa</h3>
+              <ul className="text-gray-400 space-y-2">
+                <li>Quiénes Somos</li>
+                <li>Nuestro Proceso</li>
+                <li>Cobertura</li>
+                <li>Contacto</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold mb-4">Contacto</h3>
+              <ul className="text-gray-400 space-y-2">
+                <li>info@flowinc.com</li>
+                <li>+57 300 123 4567</li>
+                <li>Bogotá, Colombia</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold mb-4">Síguenos</h3>
+              <div className="flex justify-center space-x-4">
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  📱
+                </div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  📷
+                </div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  💼
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-8">
+            <p className="text-gray-400">
+              © 2024 Flow Inc. Todos los derechos reservados.
+            </p>
+          </div>
+        </div>
+      </AnimatedSection>
       </body>
     </html>
   );

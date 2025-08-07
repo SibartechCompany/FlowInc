@@ -42,8 +42,6 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-10"
         style={{
-          opacity: getBannerOpacity(0, 1),
-          transform: `scale(${getBannerScale(0, 1, 4)})`,
           pointerEvents: phase === "banner" ? "auto" : "none",
           transformOrigin: "center center",
         }}
@@ -60,8 +58,6 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-8"
         style={{
-          opacity: getSectionOpacity(1, 2),
-          transform: `translateX(${getSectionSlideX(1, 2, 100)}%) scale(${getSectionScale(1, 2, 0.9)})`,
           pointerEvents: phase === "section" ? "auto" : "none",
           transformOrigin: "center center",
         }}
@@ -75,8 +71,7 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-6"
         style={{
-          opacity: getProcesoOpacity(2, 3),
-          transform: `translate3d(${getProcesoSlideX(2, 3, 100)}%, ${getProcesoTranslateY()}px, 0) scale3d(${getProcesoScale(2, 3, 0.9)}, ${getProcesoScale(2, 3, 0.9)}, 1)`,
+         
           pointerEvents: phase === "proceso" ? "auto" : "none",
           transformOrigin: "center center",
           willChange: phase === "proceso" || scrollProgress >= 2.5 ? "transform, opacity" : "auto",
@@ -92,8 +87,6 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-4"
         style={{
-          opacity: getCoberturaOpacity(),
-          transform: `scale(${getCoberturaScale()}) translateY(${getCoberturaTranslateY()}px)`,
           pointerEvents: phase === "cobertura" ? "auto" : "none",
           transformOrigin: "center center",
         }}
@@ -107,8 +100,6 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-3"
         style={{
-          opacity: getCasosOpacity(),
-          transform: `translateX(${getCasosSlideX()}%) scale(${getCasosScale()})`,
           pointerEvents: phase === "casos" ? "auto" : "none",
           transformOrigin: "center center",
         }}
@@ -122,8 +113,6 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-2"
         style={{
-          opacity: getTestimoniosOpacity(),
-          transform: `scale(${getTestimoniosScale()}) translateY(${getTestimoniosTranslateY()}px)`,
           pointerEvents: phase === "testimonios" ? "auto" : "none",
           transformOrigin: "center center",
         }}
@@ -137,11 +126,8 @@ export default function ScrollContainer() {
       <div
         className="absolute inset-0 z-1"
         style={{
-          opacity: getCTAOpacity(),
-          transform: `scale(${getCTAScale()})`,
           pointerEvents: phase === "cta" ? "auto" : "none",
           transformOrigin: "center center",
-          filter: `drop-shadow(0 0 ${getCTAGlow() * 20}px rgba(51, 188, 231, 0.5))`,
         }}
       >
         <div className="h-screen flex items-center justify-center">

@@ -1,63 +1,50 @@
 "use client";
 
-import { useScrollAnimation } from "@/components/ui/scroll";
-import { Cobertura, QuienesSomos } from "@/components/ui/sections";
+import { AnimatedSection } from "@/components/ui/scroll";
+import { QuienesSomos, Cobertura } from "@/components/ui/sections";
 
 export default function QuienesSomosPage() {
-   const {
-    scrollProgress,
-    phase,
-    isAnimating,
-    containerRef,
-    getBannerScale,
-    getBannerOpacity,
-    getBannerElementScale,
-    getBannerRotation,
-    getSectionOpacity,
-    getSectionScale,
-    getSectionSlideX,
-    getProcesoOpacity,
-    getProcesoSlideX,
-    getProcesoScale,
-    getProcesoTranslateY,
-    isInTransition,
-    isLateralTransition,
-    isBannerComplete,
-    getCoberturaOpacity,
-    getCoberturaScale,
-    getCoberturaTranslateY,
-  } = useScrollAnimation();
-
   return (
-    <main>
-       <div
-        className="absolute inset-0 z-8"
-        style={{
-          opacity: getSectionOpacity(1, 2),
-          transform: `
-            translateX(${getSectionSlideX(1, 2, 100)}%) 
-            scale(${getSectionScale(1, 2, 0.9)})
-          `,
-          pointerEvents: phase === "section" ? "auto" : "none",
-        }}
+    <main className="min-h-screen bg-black">
+      {/* Hero Section */}
+      <AnimatedSection 
+        sectionId="hero" 
+        className="min-h-screen flex items-center justify-center"
+        animationType="fade-up"
       >
-        <div className="h-screen flex items-center justify-center">
-          <QuienesSomos isInScrollContainer={true} />
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-black mb-8">
+            <span className="text-white">¿</span>
+            <span className="bg-gradient-to-r from-[#33bce7] via-[#634e99] to-[#e01580] bg-clip-text text-transparent">
+              QUIÉNES SOMOS
+            </span>
+            <span className="text-white">?</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto px-4">
+            Somos una agencia creativa que transforma ideas en experiencias memorables
+          </p>
         </div>
-      </div>
-            {/* Cobertura - Fase 3-4 (Grow effect) */}
-      <div
-        className="absolute inset-0 z-4"
-        style={{
-          opacity: getCoberturaOpacity(),
-          transform: `scale(${getCoberturaScale()}) translateY(${getCoberturaTranslateY()}px)`,
-          pointerEvents: getCoberturaOpacity() > 0 ? "auto" : "none",
-        }}
+      </AnimatedSection>
+
+      {/* QuienesSomos Section */}
+      <AnimatedSection 
+        sectionId="quienes-somos" 
+        className="py-20"
+        animationType="fade-up"
+        delay={200}
       >
-        <div className="h-screen flex items-center justify-center">
-          <Cobertura isInScrollContainer={true} />
-        </div>
-      </div>
+        <QuienesSomos />
+      </AnimatedSection>
+
+      {/* Cobertura Section */}
+      <AnimatedSection 
+        sectionId="cobertura" 
+        className="py-20"
+        animationType="fade-up"
+        delay={400}
+      >
+        <Cobertura />
+      </AnimatedSection>
     </main>
   );
 } 

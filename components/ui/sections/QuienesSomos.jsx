@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const timelineData = [
   {
@@ -36,117 +36,22 @@ const timelineData = [
   },
 ];
 
-export default function QuienesSomos({ isInScrollContainer = false }) {
+export default function QuienesSomos() {
   const [visibleCards, setVisibleCards] = useState([]);
-  const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
 
   useEffect(() => {
-    // Solo usar intersection observer si NO está en el scroll container
-    if (!isInScrollContainer) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const index = parseInt(entry.target.dataset.index);
-              setVisibleCards((prev) => [...new Set([...prev, index])]);
-            }
-          });
-        },
-        { threshold: 0.3, rootMargin: "0px 0px -100px 0px" }
-      );
+    // Mostrar todas las cards con animación escalonada
+    timelineData.forEach((_, index) => {
+      setTimeout(() => {
+        setVisibleCards((prev) => [...prev, index]);
+      }, index * 200);
+    });
+  }, []);
 
-      cardRefs.current.forEach((ref) => {
-        if (ref) observer.observe(ref);
-      });
-
-      return () => observer.disconnect();
-    } else {
-      // Si está en scroll container, mostrar todas las cards inmediatamente
-      setVisibleCards([0, 1, 2, 3]);
-    }
-  }, [isInScrollContainer]);
-
-  // Si está en el ScrollContainer, usar una versión más compacta
-  if (isInScrollContainer) {
-    return (
-      <div className="w-full px-4 py-8 sm:px-6 sm:py-12">
-        <div className="max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto relative z-10">
-          {/* Título Principal - RESPONSIVE MEJORADO */}
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6">
-              <span className="text-white">¿</span>
-              <span className="bg-gradient-to-r from-[#33bce7] via-[#634e99] to-[#e01580] bg-clip-text text-transparent">
-                QUIÉNES SOMOS
-              </span>
-              <span className="text-white">?</span>
-            </h2>
-            <div className="w-16 sm:w-24 md:w-32 h-1 bg-gradient-to-r from-[#33bce7] to-[#e01580] mx-auto rounded-full"></div>
-          </div>
-
-          {/* Grid de Cards Compacto - RESPONSIVE MEJORADO */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-            {timelineData.map((item, index) => (
-              <div
-                key={index}
-                className="group relative p-4 sm:p-5 md:p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-[#33bce7]/50 transition-all duration-300 hover:scale-105"
-              >
-                {/* Header con icono y stat/year - RESPONSIVE MEJORADO */}
-                <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
-                  <div className="text-2xl sm:text-3xl md:text-4xl">
-                    {item.icon}
-                  </div>
-                  {(item.year || item.stat) && (
-                    <div
-                      className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black bg-gradient-to-r bg-clip-text text-transparent"
-                      style={{
-                        backgroundImage: `linear-gradient(45deg, ${item.color}, ${item.color}80)`,
-                      }}
-                    >
-                      {item.year || item.stat}
-                    </div>
-                  )}
-                </div>
-
-                {/* Título - RESPONSIVE MEJORADO */}
-                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white leading-tight mb-2 sm:mb-3">
-                  {item.title}
-                </h3>
-
-                {/* Descripción - RESPONSIVE MEJORADO */}
-                <p className="text-gray-300 leading-relaxed mb-3 sm:mb-4 text-xs sm:text-sm md:text-base">
-                  {item.description}
-                </p>
-
-                {/* Línea decorativa - RESPONSIVE MEJORADO */}
-                <div
-                  className="w-8 sm:w-12 md:w-16 h-1 rounded-full"
-                  style={{ backgroundColor: item.color }}
-                ></div>
-
-                {/* Efecto hover */}
-                <div
-                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `linear-gradient(135deg, ${item.color}10, transparent)`,
-                  }}
-                ></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Versión completa original para uso normal - RESPONSIVE MEJORADO
   return (
-    <section
-      ref={sectionRef}
-      className="min-h-screen py-12 sm:py-16 md:py-20 px-4 sm:px-6 relative"
-    >
+    <section className="min-h-screen py-12 sm:py-16 md:py-20 px-4 sm:px-6 relative">
       <div className="max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto relative z-10">
-        {/* Título Principal - RESPONSIVE MEJORADO */}
+        {/* Título Principal */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 sm:mb-6">
             <span className="text-white">¿</span>
@@ -158,13 +63,11 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
           <div className="w-16 sm:w-24 md:w-32 h-1 bg-gradient-to-r from-[#33bce7] to-[#e01580] mx-auto rounded-full"></div>
         </div>
 
-        {/* Timeline Cards - RESPONSIVE MEJORADO */}
+        {/* Timeline Cards */}
         <div className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24">
           {timelineData.map((item, index) => (
             <div
               key={index}
-              ref={(el) => (cardRefs.current[index] = el)}
-              data-index={index}
               className={`transition-all duration-1000 ${
                 visibleCards.includes(index)
                   ? "opacity-100 translate-y-0"
@@ -172,15 +75,11 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
               }`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
-              <div
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center ${
-                  index % 2 === 1 ? "lg:grid-cols-2" : "lg:grid-cols-2"
-                }`}
-              >
-                {/* Contenido - RESPONSIVE MEJORADO */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
+                {/* Contenido */}
                 <div className={`${index % 2 === 1 ? "lg:order-2" : ""}`}>
                   <div className="space-y-4 sm:space-y-5 md:space-y-6">
-                    {/* Stat/Year - RESPONSIVE MEJORADO */}
+                    {/* Stat/Year */}
                     {(item.year || item.stat) && (
                       <div className="flex items-center space-x-3 sm:space-x-4">
                         <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
@@ -197,24 +96,24 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
                       </div>
                     )}
 
-                    {/* Solo icono para los que no tienen year/stat - RESPONSIVE MEJORADO */}
+                    {/* Solo icono para los que no tienen year/stat */}
                     {!item.year && !item.stat && (
                       <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4">
                         {item.icon}
                       </div>
                     )}
 
-                    {/* Título - RESPONSIVE MEJORADO */}
+                    {/* Título */}
                     <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
                       {item.title}
                     </h3>
 
-                    {/* Descripción - RESPONSIVE MEJORADO */}
+                    {/* Descripción */}
                     <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
                       {item.description}
                     </p>
 
-                    {/* Línea decorativa - RESPONSIVE MEJORADO */}
+                    {/* Línea decorativa */}
                     <div
                       className="w-12 sm:w-16 md:w-20 lg:w-24 h-1 rounded-full"
                       style={{ backgroundColor: item.color }}
@@ -222,14 +121,14 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
                   </div>
                 </div>
 
-                {/* Elemento Visual - RESPONSIVE MEJORADO */}
+                {/* Elemento Visual */}
                 <div
                   className={`${
                     index % 2 === 1 ? "lg:order-1" : ""
                   } flex justify-center`}
                 >
                   <div className="relative">
-                    {/* Círculo principal - RESPONSIVE MEJORADO */}
+                    {/* Círculo principal */}
                     <div
                       className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-80 xl:h-80 rounded-full flex items-center justify-center relative overflow-hidden"
                       style={{
@@ -237,7 +136,7 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
                         border: `2px solid ${item.color}40`,
                       }}
                     >
-                      {/* Contenido del círculo - RESPONSIVE MEJORADO */}
+                      {/* Contenido del círculo */}
                       <div className="text-center z-10">
                         <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-2 sm:mb-3 md:mb-4">
                           {item.icon}
@@ -260,7 +159,7 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
                         }}
                       ></div>
 
-                      {/* Partículas flotantes - RESPONSIVE MEJORADO */}
+                      {/* Partículas flotantes */}
                       <div
                         className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 w-2 sm:w-2.5 md:w-3 h-2 sm:h-2.5 md:h-3 rounded-full animate-bounce"
                         style={{
@@ -283,7 +182,7 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
                       ></div>
                     </div>
 
-                    {/* Aura externa - RESPONSIVE MEJORADO */}
+                    {/* Aura externa */}
                     <div
                       className="absolute inset-0 rounded-full blur-lg sm:blur-xl opacity-20 sm:opacity-30 animate-pulse"
                       style={{
@@ -292,7 +191,7 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
                       }}
                     ></div>
 
-                    {/* Líneas de conexión decorativas - RESPONSIVE MEJORADO */}
+                    {/* Líneas de conexión decorativas */}
                     <div
                       className="absolute -top-2 sm:-top-3 md:-top-4 -right-2 sm:-right-3 md:-right-4 w-4 sm:w-6 md:w-8 h-4 sm:h-6 md:h-8 border-t-2 border-r-2 rounded-tr-lg opacity-30"
                       style={{ borderColor: item.color }}
@@ -308,7 +207,7 @@ export default function QuienesSomos({ isInScrollContainer = false }) {
           ))}
         </div>
 
-        {/* Stats finales - RESPONSIVE MEJORADO */}
+        {/* Stats finales */}
         <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
           <div className="space-y-1 sm:space-y-2">
             <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black bg-gradient-to-r from-[#33bce7] to-[#634e99] bg-clip-text text-transparent">

@@ -34,12 +34,10 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(
-    45deg,
-    var(--color-primary),
-    var(--color-secondary),
-    var(--color-accent)
-  );
+  background: linear-gradient(45deg,
+      var(--color-primary),
+      var(--color-secondary),
+      var(--color-accent));
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -48,10 +46,12 @@ body {
 }
 
 @keyframes gradientShift {
+
   0%,
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -68,16 +68,19 @@ body {
   from {
     width: 0;
   }
+
   to {
     width: 100%;
   }
 }
 
 @keyframes blink-caret {
+
   from,
   to {
     border-color: transparent;
   }
+
   50% {
     border-color: var(--color-primary);
   }
@@ -85,7 +88,8 @@ body {
 
 @font-face {
   font-family: "quantify";
-  src: url("../fonts/Quantify.ttf") format("truetype"); /* Asegúrate de que la ruta sea correcta */
+  src: url("../fonts/Quantify.ttf") format("truetype");
+  /* Asegúrate de que la ruta sea correcta */
   font-weight: bold;
   font-style: normal;
 }
@@ -113,7 +117,6 @@ body {
 html,
 body {
   height: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -152,31 +155,37 @@ body {
 
 /* Animaciones personalizadas */
 @keyframes gradientFlow {
+
   0%,
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-20px) rotate(180deg);
   }
 }
 
 @keyframes pulse-soft {
+
   0%,
   100% {
     opacity: 0.3;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: scale(1.05);
@@ -187,6 +196,7 @@ body {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -196,16 +206,19 @@ body {
   from {
     width: 0;
   }
+
   to {
     width: 100%;
   }
 }
 
 @keyframes blink {
+
   0%,
   50% {
     opacity: 1;
   }
+
   51%,
   100% {
     opacity: 0;
@@ -237,32 +250,47 @@ body {
   animation: blink 1s infinite;
 }
 
-/* Scrollbar personalizado */
+/* Scrollbar personalizado - SUTIL Y SEMI-TRANSPARENTE */
 ::-webkit-scrollbar {
   width: 8px;
+  /* Un poco más ancho para ser más visible */
+  /* Más delgado */
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    var(--color-primary),
-    var(--color-secondary),
-    var(--color-accent)
-  );
+  background: rgba(26, 26, 26, 0.5);
+  /* Más opaco */
+  /* Semi-transparente */
   border-radius: 4px;
 }
 
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,
+      rgba(51, 188, 231, 0.8),
+      /* Más opaco */
+      /* Semi-transparente */
+      rgba(99, 78, 153, 0.8),
+      rgba(224, 21, 128, 0.8));
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    var(--color-accent),
-    var(--color-secondary),
-    var(--color-primary)
-  );
+  background: linear-gradient(180deg,
+      rgba(224, 21, 128, 1),
+      /* Completamente opaco al hover */
+      /* Más opaco al hover */
+      rgba(99, 78, 153, 1),
+      rgba(51, 188, 231, 1));
+  width: 10px;
+  /* Más ancho al hover */
+  /* Un poco más ancho al hover */
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 188, 231, 0.8) rgba(26, 26, 26, 0.5);
 }
 
 /* Efectos hover mejorados */
@@ -298,13 +326,18 @@ body {
 
 .light {
   position: absolute;
-  width: 200px; /* Tamaño de la "linterna" */
-  height: 200px; /* Tamaño de la "linterna" */
-  border-radius: 50%; /* Forma circular */
+  width: 200px;
+  /* Tamaño de la "linterna" */
+  height: 200px;
+  /* Tamaño de la "linterna" */
+  border-radius: 50%;
+  /* Forma circular */
   background: #ffffff;
   filter: blur(50px);
-  mix-blend-mode: screen; /* Mezclar con el fondo oscuro */
-  pointer-events: none; /* Ignorar eventos del mouse */
+  mix-blend-mode: screen;
+  /* Mezclar con el fondo oscuro */
+  pointer-events: none;
+  /* Ignorar eventos del mouse */
   transform: translate(-50%, -50%);
   z-index: 1;
 }
@@ -316,10 +349,11 @@ body {
   transform: translate(-50%, -50%);
   color: white;
   font-size: 24px;
-  z-index: 2; /* Asegurar que el logo esté sobre la "linterna" */
+  z-index: 2;
+  /* Asegurar que el logo esté sobre la "linterna" */
 }
 
-.mySwiper > div {
+.mySwiper>div {
   transition-timing-function: linear;
 }
 
@@ -333,9 +367,11 @@ body {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -358,28 +394,27 @@ body {
   transition: all 0.5s;
   opacity: 0;
   background: linear-gradient(to top, #634e9b, #30bde7, #e21682);
-  width: 100px; /* adjust to control the size */
+  width: 100px;
+  /* adjust to control the size */
   aspect-ratio: 1;
-  clip-path: polygon(
-    100% 50%,
-    85.36% 85.36%,
-    50% 100%,
-    14.64% 85.36%,
-    0% 50%,
-    14.64% 14.64%,
-    50% 0%,
-    85.36% 14.64%,
-    100% 50%,
-    calc(85.36% - 3.54px) calc(14.64% - -3.54px),
-    calc(50% - 0px) calc(0% - -5px),
-    calc(14.64% - -3.54px) calc(14.64% - -3.54px),
-    calc(0% - -5px) calc(50% - 0px),
-    calc(14.64% - -3.54px) calc(85.36% - 3.54px),
-    calc(50% - 0px) calc(100% - 5px),
-    calc(85.36% - 3.54px) calc(85.36% - 3.54px),
-    calc(100% - 5px) calc(50% - 0px),
-    calc(85.36% - 3.54px) calc(14.64% - -3.54px)
-  );
+  clip-path: polygon(100% 50%,
+      85.36% 85.36%,
+      50% 100%,
+      14.64% 85.36%,
+      0% 50%,
+      14.64% 14.64%,
+      50% 0%,
+      85.36% 14.64%,
+      100% 50%,
+      calc(85.36% - 3.54px) calc(14.64% - -3.54px),
+      calc(50% - 0px) calc(0% - -5px),
+      calc(14.64% - -3.54px) calc(14.64% - -3.54px),
+      calc(0% - -5px) calc(50% - 0px),
+      calc(14.64% - -3.54px) calc(85.36% - 3.54px),
+      calc(50% - 0px) calc(100% - 5px),
+      calc(85.36% - 3.54px) calc(85.36% - 3.54px),
+      calc(100% - 5px) calc(50% - 0px),
+      calc(85.36% - 3.54px) calc(14.64% - -3.54px));
 }
 
 .containerNavServices {
@@ -455,6 +490,7 @@ body {
     opacity: 0;
     transform: translateY(50px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -466,6 +502,7 @@ body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
