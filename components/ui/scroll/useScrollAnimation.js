@@ -22,7 +22,6 @@ export function useScrollAnimation() {
       }
     );
 
-    // Observar todas las secciones
     Object.values(sectionRefs.current).forEach((ref) => {
       if (ref) observer.observe(ref);
     });
